@@ -127,6 +127,7 @@ static getQuantity(String path) async{
     DateFormat dateFormat = DateFormat(format);
     return dateFormat.format(vdate);
   }
+
   static String formatTimeOfDay(TimeOfDay tod) {
     final now = new DateTime.now();
     final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);

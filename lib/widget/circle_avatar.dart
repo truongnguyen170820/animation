@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 //         CachedNetworkImageProvider(ApiConstants.shared.getFullImage(path)),
 //   );
 // }
-Widget circleAvatar(String path,String replaceName,{double radius = 36}) {
+Widget circleAvatar(String replaceName,{double radius = 36}) {
   radius = setWidth(radius);
   return ClipRRect(
       borderRadius: BorderRadius.circular(radius),

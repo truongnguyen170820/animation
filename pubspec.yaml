@@ -34,6 +34,11 @@ dependencies:
   animated_text_kit: any
   page_view_indicators: ^1.3.1
   carousel_slider: any
+  intl: ^0.16.1
+  flutter_typeahead: ^1.9.2
+  date_range_picker:
+    git:
+      url: https://github.com/LempereurBenjamin/date_range_picker
 
 dev_dependencies:
   flutter_test:

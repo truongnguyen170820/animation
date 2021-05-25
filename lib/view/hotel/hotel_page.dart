@@ -2,11 +2,15 @@ import 'package:animation/utils/color_utils.dart';
 import 'package:animation/utils/font_utils.dart';
 import 'package:animation/utils/global.dart';
 import 'package:animation/utils/utilities.dart';
+import 'package:animation/view/hotel/history_booking_page.dart';
+import 'package:animation/view/hotel/hotel_detail_page.dart';
 import 'package:animation/view/hotel/playground_page.dart';
 import 'package:animation/widget/common_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'appointment_hotel_page.dart';
+List<HistoryHotel> listHistory = [];
 class HotelPage extends StatefulWidget {
   @override
   _HotelPageState createState() => _HotelPageState();
@@ -16,10 +20,11 @@ class _HotelPageState extends State<HotelPage> {
   // NumberFormat nf = NumberFormat("###,###,###", "en_US");
   int type;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbarDefault(context, "Hotel", bgColor: ColorUtils.underlined),
+      appBar: appbarDefault(context, "Playground", bgColor: ColorUtils.underlined),
       backgroundColor: ColorUtils.underlined,
       body: Column(
         children: [
@@ -37,7 +42,7 @@ class _HotelPageState extends State<HotelPage> {
                           text: "Tranding",
                         ),
                         Tab(
-                          text: "Top Booking",
+                          text: "History Booking",
                         ),
                         Tab(
                           text: "Trending",
@@ -46,45 +51,13 @@ class _HotelPageState extends State<HotelPage> {
                   Container(
                     height: setHeight(500),
                     margin: EdgeInsets.only(
-                        left: setWidth(16),
-                        right: setWidth(16),
-                        top: setHeight(10),
-                        bottom: setHeight(20)),
+                        left: setWidth(8),
+                        right: setWidth(8),
+                        top: setHeight(8),
+                        bottom: setHeight(18)),
                     child: TabBarView(children: [
-                      Column(
-                        children: [
-                          Container(
-                            height: setHeight(240),
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                itemTabBarView(
-                                    "hotel1.jpg", "Luxury Hotel", "Hạ long", 4),
-                                itemTabBarView("hotel2.jpg",
-                                    "Muong Thanh Hotel", "Hà Nội", 5),
-                                itemTabBarView(
-                                    "hotel1.jpg", "Luxury Hotel", "Hạ long", 3)
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                              child: ListView.builder(
-                                  itemCount: listHotel.length,
-                                  itemBuilder: (context, snapshot) {
-                                    return itemListHotel(listHotel[snapshot]);
-                                  }))
-                        ],
-                      ),
-                      ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          itemTabBarView(
-                              "hotel2.jpg", "Muong Thanh Hotel", "Hạ long", 4),
-                          itemTabBarView("hotel1.jpg", "Center", "Hà Nội", 5),
-                          itemTabBarView(
-                              "hotel2.jpg", "Luxury Hotel", "Hạ long", 3)
-                        ],
-                      ),
+                      _buidBody(),
+                      HistoryBookingPage(),
                       ListView(
                         scrollDirection: Axis.horizontal,
                         children: [],
@@ -97,24 +70,107 @@ class _HotelPageState extends State<HotelPage> {
       ),
     );
   }
-
-  Widget itemTabBarView(
-      String nameUrl, String hotelName, String location, int rating) {
-    return Card(
-      margin: EdgeInsets.only(right: setWidth(22)),
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      elevation: 0.0,
-      child: InkWell(
-        onTap: () {},
+Widget _buidBody(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Top Hotel", style: FontUtils.MEDIUM.copyWith(color: ColorUtils.blueAccent, fontSize: setSp(16))),
+        Container(
+          margin: EdgeInsets.only(top: setHeight(5), bottom: setHeight(8)),
+          height: setHeight(1),
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: ColorUtils.gray6
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(bottom: setHeight(8)),
+          height: setHeight(200),
+          child: ListView.builder(
+            itemCount: listNameHotel.length,
+            itemBuilder: (context, index){
+              return itemTabBarView(listNameHotel[index]);
+            },
+            scrollDirection: Axis.horizontal,
+          ),
+        ),
+        Row(
+          children: [
+            GestureDetector(
+              onTap: (){
+                pushTo(context,AppointmentHotelPage() );
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: setWidth(30)),
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: ColorUtils.gray6)
+                ),
+                child: Column(
+                  children: [
+                    Image.asset(getAssetsIcon("mobile.png"), height: setHeight(50), color: ColorUtils.blueAccent),
+                    Text("Booking Room")
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: (){
+                pushTo(context, HistoryBookingPage());
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: setWidth(30)),
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: ColorUtils.gray6)
+                ),
+                child: Column(
+                  children: [
+                    Image.asset(getAssetsIcon("calendar.png"),  height: setHeight(50),color: ColorUtils.blueAccent,),
+                    Text("History Booking")
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: setHeight(16)),
+        Text("PlayGround", style: FontUtils.MEDIUM.copyWith(color: ColorUtils.blueAccent, fontSize: setSp(16))),
+        Container(
+          margin: EdgeInsets.only(top: setHeight(5), bottom: setHeight(8)),
+          height: setHeight(1),
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: ColorUtils.gray6
+          ),
+        ),
+        Expanded(
+            child: ListView.builder(
+                itemCount: listHotel.length,
+                itemBuilder: (context, snapshot) {
+                  return itemListHotel(listHotel[snapshot]);
+                }))
+      ],
+    );
+}
+  Widget itemTabBarView(NameHotel nameHotel) {
+    return GestureDetector(
+      onTap: (){pushTo(context, HotelDetaiPage(hotelName: nameHotel,));},
+      child: Card(
+        margin: EdgeInsets.only(right: setWidth(22)),
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        elevation: 0.0,
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(getAssetsImage(nameUrl)),
+                image: AssetImage(getAssetsImage(nameHotel.url??"")),
                 fit: BoxFit.cover,
                 scale: 2.0),
           ),
-          width: setWidth(200),
+          width: setWidth(180),
           padding: EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -122,7 +178,7 @@ class _HotelPageState extends State<HotelPage> {
             children: [
               Row(
                 children: [
-                  for (int i = 0; i < rating; i++)
+                  for (int i = 0; i < nameHotel.rating??""; i++)
                     Icon(Icons.star, color: ColorUtils.RED_BACKGROUND),
                 ],
               ),
@@ -132,12 +188,12 @@ class _HotelPageState extends State<HotelPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      hotelName,
+                      nameHotel.nameHote??"",
                       style: FontUtils.BOLD.copyWith(
                           color: ColorUtils.WHITE_TEXT, fontSize: setSp(17)),
                     ),
                     Text(
-                      location,
+                      nameHotel.location??"",
                       style: FontUtils.MEDIUM
                           .copyWith(color: ColorUtils.WHITE_TEXT),
                     ),
@@ -150,7 +206,6 @@ class _HotelPageState extends State<HotelPage> {
       ),
     );
   }
-
   Widget itemListHotel(Hotel hotel) {
     return GestureDetector(
       onTap: () {
@@ -283,7 +338,35 @@ class _HotelPageState extends State<HotelPage> {
     );
   }
 }
+class HistoryHotel{
+  String name;
+  String url;
+  String brithday;
+  String mobile;
+  String dateStr;
+  String urlRoom;
+  String nameRoom;
+  String moneyRoom;
+  String nameHotel;
+  String address;
 
+  HistoryHotel(
+      this.name, this.brithday, this.mobile,
+      this.dateStr, this.url,{ this.nameRoom,
+        this.urlRoom, this.moneyRoom, this.nameHotel, this.address});
+}
+class NameHotel{
+  int type;
+  String nameHote;
+  String url;
+  String location;
+  String moneyRoom;
+  int rating;
+  String introHotel;
+  NameHotel(this.type, this.nameHote, this.url, this.location, this.moneyRoom,
+      this.rating, this.introHotel);
+
+}
 class Hotel {
   int type;
   String hotelName;
@@ -311,7 +394,6 @@ class Hotel {
       this.listLogo,
       this.contact});
 }
-
 class News {
   String nameNews;
   String imageUrl;
@@ -319,12 +401,10 @@ class News {
   String news;
   News(this.nameNews, this.imageUrl, this.date, this.news);
 }
-
 class logoImage {
   String imageUrl;
   logoImage(this.imageUrl);
 }
-
 class Contact {
   String name;
   String address;
@@ -336,7 +416,33 @@ class Contact {
   Contact(this.name, this.address, this.mobile, this.phoneNumber, this.hotline,
       this.email);
 }
+class Address{
+  String Name;
+  String provinceName;
+  String districtName;
+  String communeName;
 
+  Address(this.Name, this.provinceName, this.districtName, this.communeName);
+}
+
+List<Address> listAddress = [
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Phường Đông Triều", "Tỉnh Quảng Ninh", "Thị xã Đông Triều", "Phường Đông Triều"),
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Phường Hưng Đạo", "Tỉnh Quảng Ninh", "Thị xã Đông Triều", "Phường Hưng Đạo"),
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Phường Kim Sơn", "Tỉnh Quảng Ninh", "Thị xã Đông Triều","Phường Kim Sơn"),
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Phường Mạo Khê", "Tỉnh Quảng Ninh", "Thị xã Đông Triều", "Phường Mạo Khê"),
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Phường Xuân Sơn", "Tỉnh Quảng Ninh", "Thị xã Đông Triều", "Phường Xuân Sơn"),
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Phường Đông Triều", "Tỉnh Quảng Ninh", "Thị xã Đông Triều", "Phường Đông Triều"),
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Phường Đức Chính", "Tỉnh Quảng Ninh", "Thị xã Đông Triều", "Phường Đức Chính"),
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Xã An Sinh", "Tỉnh Quảng Ninh", "Thị xã Đông Triều", "Xã An Sinh"),
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Xã Bình Dương", "Tỉnh Quảng Ninh", "Thị xã Đông Triều", "Xã Bình Dương"),
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Xã Bình Khê", "Tỉnh Quảng Ninh", "Thị xã Đông Triều", "Xã Bình Khê"),
+  Address("Tỉnh Quảng Ninh - Thị xã Đông Triều - Xã Hoàng Quế", "Tỉnh Quảng Ninh", "Thị xã Đông Triều", "Xã Hoàng Quế"),
+];
+List<NameHotel> listNameHotel = [
+  NameHotel(1, "Luxyry Hotel", "hotel1.jpg", "Hạ long", "50", 5, ""),
+  NameHotel(2, "Mường Thanh Hotel", "hotel1.jpg", "Hạ long", "50", 5, ""),
+  NameHotel(3, "Luxyry Hotel", "hotel1.jpg", "Hạ long", "50", 5, ""),
+];
 List<Hotel> listHotel = [
   Hotel(
     1,

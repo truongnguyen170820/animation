@@ -103,20 +103,18 @@ class _PlaygroundPageState extends State<PlaygroundPage> {
           ],
         ));
   }
-
   check(int type) {
     switch (type) {
       case 1:
         return listSlideImageHL.sublist(0, 3);
       case 3:
-        return listSlideImageHL.sublist(4, 6);
+        return listSlideImageHL.sublist(3, 6);
       default:
         return listSlideImageDN;
       // return SizedBox();
 
     }
   }
-
   Widget _buildBodyPage(Hotel hotel) {
     return Container(
       margin: EdgeInsets.only(
@@ -263,7 +261,6 @@ class _PlaygroundPageState extends State<PlaygroundPage> {
       ),
     );
   }
-
   Widget _buildNews(News news) {
     return Container(
       width: setWidth(230),
@@ -294,7 +291,6 @@ class _PlaygroundPageState extends State<PlaygroundPage> {
       ),
     );
   }
-
   Widget _buildLogo(logoImage logo) {
     return Container(
       width: setWidth(200),
@@ -312,7 +308,6 @@ class _PlaygroundPageState extends State<PlaygroundPage> {
       ),
     );
   }
-
   Widget _buildContact(Contact contact) {
     return Container(
       margin: EdgeInsets.only(bottom: setHeight(50)),
@@ -342,7 +337,6 @@ class _PlaygroundPageState extends State<PlaygroundPage> {
       ),
     );
   }
-
   Widget _buildC(String name, String detail) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
