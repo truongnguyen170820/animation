@@ -26,48 +26,7 @@ class _HotelPageState extends State<HotelPage> {
     return Scaffold(
       appBar: appbarDefault(context, "Playground", bgColor: ColorUtils.underlined),
       backgroundColor: ColorUtils.underlined,
-      body: Column(
-        children: [
-          DefaultTabController(
-              length: 3,
-              child: Column(
-                children: [
-                  TabBar(
-                      indicatorColor: ColorUtils.YELLOW_TEXT,
-                      unselectedLabelColor: ColorUtils.NUMBER_PAGE,
-                      labelColor: ColorUtils.text_selected,
-                      labelPadding: EdgeInsets.symmetric(horizontal: 8),
-                      tabs: [
-                        Tab(
-                          text: "Tranding",
-                        ),
-                        Tab(
-                          text: "History Booking",
-                        ),
-                        Tab(
-                          text: "Trending",
-                        )
-                      ]),
-                  Container(
-                    height: setHeight(500),
-                    margin: EdgeInsets.only(
-                        left: setWidth(8),
-                        right: setWidth(8),
-                        top: setHeight(8),
-                        bottom: setHeight(18)),
-                    child: TabBarView(children: [
-                      _buidBody(),
-                      HistoryBookingPage(),
-                      ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [],
-                      )
-                    ]),
-                  ),
-                ],
-              )),
-        ],
-      ),
+      body:_buidBody()
     );
   }
 Widget _buidBody(){

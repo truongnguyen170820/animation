@@ -70,6 +70,7 @@ int selectedDayIndex = 0;
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: setHeight(20)),
               _buildAdd(_nameCtrl, "Nhận họ tên", "Họ tên"),
               Stack(
                 alignment: AlignmentDirectional.centerEnd,
@@ -195,7 +196,7 @@ int selectedDayIndex = 0;
                 margin: EdgeInsets.only(top: setHeight(8), bottom: setHeight(16)),
                 width: double.infinity,
                 padding: EdgeInsets.only(left: setWidth(16)),
-                height: setHeight(50),
+                height: setHeight(80),
                 child: ListView.builder(
                     itemCount:  listRoom.length,
                     scrollDirection: Axis.horizontal,
@@ -206,22 +207,27 @@ int selectedDayIndex = 0;
                             selectedVipIndex = index;
                           });
                         },
-                        child: Stack(
+                        child: Column(
                           children: [
-                            Image.asset(getAssetsIcon(listRoom[index].url??""), width: setWidth(60),height: setHeight(60)),
-                            selectedVipIndex == index ?
-                            Positioned(
-                                right: 0,
-                                top: 0,
-                                child:  Container(
-                                    decoration: BoxDecoration(
-                                        color: ColorUtils.WHITE_TEXT,
-                                        shape: BoxShape.circle,
-                                        border: Border.all(color: Colors.white)
-                                    ),
-                                    child: Image.asset(getAssetsIcon("tickRank.png"), width: setWidth(13),height: setHeight(13)))
-                            )
-                                : SizedBox(),
+                            Stack(
+                              children: [
+                                Image.asset(getAssetsIcon(listRoom[index].url??""), width: setWidth(60),height: setHeight(60)),
+                                selectedVipIndex == index ?
+                                Positioned(
+                                    right: 0,
+                                    top: 0,
+                                    child:  Container(
+                                        decoration: BoxDecoration(
+                                            color: ColorUtils.WHITE_TEXT,
+                                            shape: BoxShape.circle,
+                                            border: Border.all(color: Colors.white)
+                                        ),
+                                        child: Image.asset(getAssetsIcon("tickRank.png"), width: setWidth(13),height: setHeight(13)))
+                                )
+                                    : SizedBox(),
+                              ],
+                            ),
+                            Text(listRoom[index].nameRoom??"")
                           ],
                         ),
                       );
@@ -406,6 +412,23 @@ int selectedDayIndex = 0;
     );
   }
   check(){
+    FocusScope.of(context).unfocus();
+    if(_nameCtrl.text.trim().isEmpty){
+      Utilities.showToast(context, "Ban chưa thêm họ tên");
+      return;
+    }
+    if(_birthCtrl.text.trim().isEmpty){
+      Utilities.showToast(context, "Ban chưa thêm ngày sinh");
+      return;
+    }
+    if(_mobileCtrl.text.trim().isEmpty){
+      Utilities.showToast(context, "Ban chưa thêm số điện thoại");
+      return;
+    }
+    if(_txtSearchAddress.text.trim().isEmpty){
+      Utilities.showToast(context, "Ban chưa thêm địa chỉ");
+      return;
+    }
     listHistory.add(HistoryHotel(_nameCtrl.text??"", _birthCtrl.text??"", _mobileCtrl.text??""
         , Utilities.formatTimeOfDay(TimeOfDay(hour: hourIndex + 8, minute: minuteIndex* 10))
             +" - "+Utilities.dateToString(selectedDay)

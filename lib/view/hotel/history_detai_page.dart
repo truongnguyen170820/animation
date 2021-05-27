@@ -32,13 +32,14 @@ class _HistoryDetaiPageState extends State<HistoryDetaiPage> {
         ),
         child: Column(
           children: [
+            SizedBox(height: setHeight(40)),
             CircleAvatar(radius: 40),
-            Text(widget.historyHotel.name??"", style: FontUtils.MEDIUM.copyWith(color: ColorUtils.NUMBER_PAGE)),
-            Text(widget.historyHotel.brithday??""),
-            Text(widget.historyHotel.mobile??""),
-            Text(widget.historyHotel.address??""),
-            Text(widget.historyHotel.nameRoom??""),
+            _buildCustomer("Tên khách hàng", widget.historyHotel.name??""),
+            _buildCustomer("Ngày sinh", widget.historyHotel.brithday??""),
+            _buildCustomer("Số điện thoại", widget.historyHotel.mobile??""),
+            _buildCustomer("Địa chỉ", widget.historyHotel.address??""),
             Container(
+              margin: EdgeInsets.only(top: setHeight(8)),
               padding: EdgeInsets.only(left: setWidth(8), top: setHeight(8), right: setWidth(8), bottom: setHeight(8)),
               decoration: BoxDecoration(
                 border: Border.all(color: ColorUtils.blueAccent),
@@ -73,14 +74,33 @@ class _HistoryDetaiPageState extends State<HistoryDetaiPage> {
                       )
                      ],
                   ),
-
-
                 ],
               ),
             )
             
           ],
         ),
+      ),
+    );
+  }
+  Widget _buildCustomer(String name, String intro){
+    return Container(
+     padding: EdgeInsets.only(top: setHeight(8), bottom: setHeight(8)),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: ColorUtils.underlined
+          )
+        )
+      ),
+      child: Row(
+        children: [
+          Text(name, style: FontUtils.MEDIUM.copyWith(color: ColorUtils.NUMBER_PAGE),),
+          Spacer(),
+          Container(
+              width: setWidth(200),
+              child: Text(intro, style: FontUtils.NORMAL.copyWith(color: ColorUtils.gray2),maxLines: 2,textAlign: TextAlign.end,))
+        ],
       ),
     );
   }

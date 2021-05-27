@@ -2,8 +2,12 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:animation/utils/font_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+
+import 'color_utils.dart';
 
 
 class Utilities {
@@ -160,6 +164,25 @@ static getQuantity(String path) async{
    NumberFormat formatter = NumberFormat('###,###');
    return formatter.format(amount);
  }
+
+  static showToast(BuildContext context, String mess,
+      {Color textColor = Colors.white}) {
+    FlutterToast(context).showToast(
+      child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25.0),
+            color: ColorUtils.BLACK_BACKGROUND,
+          ),
+          child: Text(
+            mess,
+            style: FontUtils.NORMAL.copyWith(color: textColor),
+          )),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 1),
+    );
+  }
+
 //
 //  static String dateToString(DateTime vdate, {String format:  "dd/MM/yyyy"}){
 //    DateFormat dateFormat = DateFormat(format);
